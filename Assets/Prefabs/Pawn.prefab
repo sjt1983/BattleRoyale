@@ -223,9 +223,12 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 5962416760707187525}
   _networkObjectCache: {fileID: 5962416760707187525}
+  pawnInput: {fileID: 4724986570669673481}
   controllingPlayer: {fileID: 0}
   Health: 100
-  itemPawnIsLookingAt: {fileID: 0}
+  ItemPawnIsLookingAt: {fileID: 0}
+  itemSlot1: {fileID: 0}
+  activeSlot: {fileID: 0}
 --- !u!114 &5962416760707187525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,6 +247,7 @@ MonoBehaviour:
   - {fileID: 2326998793179860253}
   - {fileID: 5555190590181164100}
   - {fileID: 6708763872489427295}
+  - {fileID: -6618634106194668946}
   SceneTransformProperties:
     Position: {x: 0, y: 0, z: -0.032}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -291,11 +295,11 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 5962416760707187525}
   horizontalDirection: 0
   verticalDirection: 0
-  adjustedMouseX: 0
-  adjustedMouseY: 0
+  AdjustedMouseX: 0
+  AdjustedMouseY: 0
+  Interacting: 0
   jump: 0
-  fire: 0
-  use: 0
+  PrimaryUse: 0
 --- !u!114 &2326998793179860253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,6 +388,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d30137d69c426a440adad9b958402359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 5
   _addedNetworkObject: {fileID: 5962416760707187525}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 5962416760707187525}

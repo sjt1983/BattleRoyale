@@ -27,9 +27,9 @@ public sealed class PawnInput : NetworkBehaviour
     /** Actions **/
 
     public bool Interacting;
-
-    public bool jump;
-    public bool fire;
+    public bool Jump;
+    public bool PrimaryUse;
+    public bool Reloading;
 
     private void Awake()
     {        
@@ -47,6 +47,15 @@ public sealed class PawnInput : NetworkBehaviour
 
         //Interaction
         playerInputSystem.PlayerControls.Interact.Enable();
+
+        //Primary Use
+        playerInputSystem.PlayerControls.PrimaryUse.Enable();
+
+        //Reload
+        playerInputSystem.PlayerControls.Reload.Enable();
+
+        //Jump
+        playerInputSystem.PlayerControls.Jump.Enable();
 
         //Enable the controller.
         movementInput.Enable();
@@ -84,6 +93,29 @@ public sealed class PawnInput : NetworkBehaviour
         if (playerInputSystem.PlayerControls.Interact.WasReleasedThisFrame())
         {
             Interacting = false;
+        }
+
+        //Handle Use
+        if (playerInputSystem.PlayerControls.PrimaryUse.WasPressedThisFrame())
+        {
+            PrimaryUse = true;
+        }
+
+        if (playerInputSystem.PlayerControls.PrimaryUse.WasReleasedThisFrame())
+        {
+            PrimaryUse = false;
+        }
+
+        //Handle Interaction
+        if (playerInputSystem.PlayerControls.Jump.WasPressedThisFrame())
+        {
+            Jump = true;
+        }
+
+        //Handle Reload
+        if (playerInputSystem.PlayerControls.Reload.WasPressedThisFrame())
+        {
+            Reloading = true;
         }
 
         // jump = Input.GetButton("Jump");

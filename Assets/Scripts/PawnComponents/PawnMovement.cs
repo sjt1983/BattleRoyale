@@ -10,8 +10,8 @@ public sealed class PawnMovement : NetworkBehaviour
 
     /** Movement related "physics" values. **/
     private float speed = 5;
-    private float jumpSpeed = 1;
-    private float gravityScale = 1;
+    private float jumpSpeed = 6;
+    private float gravityScale = 1.5f;
 
     /** Movement Vectors **/
 
@@ -45,9 +45,10 @@ public sealed class PawnMovement : NetworkBehaviour
             movementVelocity.y = 0.0f;
 
             //Only allow jumping if grounded.
-            if (pawnInput.jump)
+            if (pawnInput.Jump)
             {
                 movementVelocity.y = jumpSpeed;
+                pawnInput.Jump = false;
             }
         }
         else //Apply gravity

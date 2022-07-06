@@ -25,7 +25,7 @@ public sealed class GameManager : NetworkBehaviour
     [Server]
     public void SpawnItem()
     {
-        GameObject gunPrefab = Addressables.LoadAssetAsync<GameObject>("Gun").WaitForCompletion();
+        GameObject gunPrefab = Addressables.LoadAssetAsync<GameObject>("Pistol").WaitForCompletion();
         GameObject gunInstance = Instantiate(gunPrefab);
         
         Spawn(gunInstance, Owner);

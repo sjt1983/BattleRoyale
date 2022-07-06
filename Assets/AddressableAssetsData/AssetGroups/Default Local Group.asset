@@ -21,8 +21,8 @@ MonoBehaviour:
     m_Address: Pawn
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: a4a5ddad05c07c5429f358f931d35b16
-    m_Address: Gun
+  - m_GUID: 2886d44f9b062a34e90d359b14dabd5a
+    m_Address: Pistol
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
