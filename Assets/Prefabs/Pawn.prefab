@@ -184,6 +184,7 @@ GameObject:
   - component: {fileID: 5555190590181164100}
   - component: {fileID: 6708763872489427295}
   - component: {fileID: -6618634106194668946}
+  - component: {fileID: -2301910318146596449}
   m_Layer: 0
   m_Name: Pawn
   m_TagString: Untagged
@@ -227,7 +228,8 @@ MonoBehaviour:
   controllingPlayer: {fileID: 0}
   Health: 100
   ItemPawnIsLookingAt: {fileID: 0}
-  itemSlot1: {fileID: 0}
+  itemSlotGameObject1: {fileID: 0}
+  itemSlotUseable1: {fileID: 0}
   activeSlot: {fileID: 0}
 --- !u!114 &5962416760707187525
 MonoBehaviour:
@@ -255,7 +257,7 @@ MonoBehaviour:
   _isNetworked: 1
   _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: 4
+  _prefabId: 3
   _scenePathHash: 0
   _sceneId: 0
   _sceneNetworkObjects:
@@ -298,7 +300,6 @@ MonoBehaviour:
   AdjustedMouseX: 0
   AdjustedMouseY: 0
   Interacting: 0
-  jump: 0
   PrimaryUse: 0
 --- !u!114 &2326998793179860253
 MonoBehaviour:
@@ -391,3 +392,18 @@ MonoBehaviour:
   _componentIndexCache: 5
   _addedNetworkObject: {fileID: 5962416760707187525}
   _networkObjectCache: {fileID: 5962416760707187525}
+--- !u!114 &-2301910318146596449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5962416760707187531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80b1db71625acfc4eb27450ee1bc637a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 5962416760707187525}
+  _networkObjectCache: {fileID: 0}

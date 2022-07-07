@@ -1,7 +1,7 @@
 using FishNet.Object;
-using UnityEngine;
 
-public sealed class PawnUse : NetworkBehaviour
+//Useage for handling when the pawn interacts with an item.
+public sealed class PawnInteraction : NetworkBehaviour
 {
     private PawnInput pawnInput;
 

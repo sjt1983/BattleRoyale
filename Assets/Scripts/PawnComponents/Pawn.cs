@@ -19,6 +19,7 @@ public sealed class Pawn : NetworkBehaviour
     [SyncVar]
     public float Health;
 
+    //The item immediatley in front of the player in the world to interact with.
     public InteractableItem ItemPawnIsLookingAt;
 
     //Inventory Slots
@@ -33,6 +34,7 @@ public sealed class Pawn : NetworkBehaviour
         if (!IsOwner)
             return;
 
+        //Primary Use
         if (activeSlot != null && pawnInput.PrimaryUse)
         {
             activeSlot.StartUse();
@@ -42,6 +44,7 @@ public sealed class Pawn : NetworkBehaviour
             activeSlot.StopUse();
         }
 
+        //Reload
         if (activeSlot != null && pawnInput.Reloading)
         {
             activeSlot.Reload();
@@ -59,7 +62,6 @@ public sealed class Pawn : NetworkBehaviour
         itemSlotUseable1 = item.GetComponent<UseableItem>();
         activeSlot = itemSlotUseable1;
     }
-
 
     //Deal damage to the pawn.
     public void ReceiveDamage(float amount)

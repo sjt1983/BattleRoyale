@@ -26,10 +26,39 @@ public sealed class PawnInput : NetworkBehaviour
 
     /** Actions **/
 
+    //Player is attempting to Interact with an object in the world, e.g. Pickup Item
     public bool Interacting;
-    public bool Jump;
+
+    //Player is using their selected item, e.g. shoot gun.
     public bool PrimaryUse;
-    public bool Reloading;
+
+    //Player hit the jump button.
+    //We want to capture that the user jumped.
+    //but as soon as something checks that the user hit the jump button, set it to false so we dont get in a jump loop.
+    private bool jump = false;
+    public bool Jumping {
+        get {
+            bool retval = jump;
+            jump = false;
+            return retval;
+        }
+        set => jump = value;   
+    }
+
+    //Player attempted to reload a weapon.
+    //Same deal as before, we want to ensure we capture the input but as soon as we check for it, set it to false.
+    //This pattern may kind of suck and be changes later.
+    private bool reloading;
+    public bool Reloading
+    {
+        get
+        {
+            bool retval = reloading;
+            reloading = false;
+            return retval;
+        }
+        set => reloading = value;
+    }
 
     private void Awake()
     {        
@@ -109,7 +138,11 @@ public sealed class PawnInput : NetworkBehaviour
         //Handle Interaction
         if (playerInputSystem.PlayerControls.Jump.WasPressedThisFrame())
         {
-            Jump = true;
+            Jumping = true;
+        }
+        if (playerInputSystem.PlayerControls.Jump.WasReleasedThisFrame())
+        {
+            Jumping = false;
         }
 
         //Handle Reload
@@ -117,10 +150,5 @@ public sealed class PawnInput : NetworkBehaviour
         {
             Reloading = true;
         }
-
-        // jump = Input.GetButton("Jump");
-        // fire = Input.GetButton("Fire1");
-    }
-
-   
+    }       
 }

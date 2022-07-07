@@ -1,6 +1,6 @@
 using FishNet.Object;
 
-//Pistol Interactable, used to equip
+//Pistol Interactable, used to equip the pistol
 public class PistolInteractable : InteractableItem
 {
     [ServerRpc (RequireOwnership = false)]
@@ -8,5 +8,4 @@ public class PistolInteractable : InteractableItem
     {
         pawn.EquipItem(gameObject);
     }
-
 }

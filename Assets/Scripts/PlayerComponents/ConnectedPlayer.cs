@@ -3,6 +3,7 @@ using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using System.Collections.Generic;
 
 //Class to represent the connected user.
 //Fishnet spawns this via the NetworkManager, one for every client that connects.
@@ -57,10 +58,13 @@ public sealed class ConnectedPlayer : NetworkBehaviour
     {
         GameObject pawnPrefab = Addressables.LoadAssetAsync<GameObject>("Pawn").WaitForCompletion();
         GameObject pawnInstance = Instantiate(pawnPrefab);
-        GameObject spawnPoint = GameObject.Find("SpawnPoint2");
+        SpawnPoint[] spawnPoints = FindObjectsOfType<SpawnPoint>();
+
+        int thePoint = Random.Range(0, spawnPoints.Length - 1);
+
                         
         Spawn(pawnInstance, Owner);
-        pawnInstance.transform.position = spawnPoint.transform.position;
+        pawnInstance.transform.position = spawnPoints[thePoint].transform.position;
         controlledPawn = pawnInstance.GetComponent<Pawn>();
         controlledPawn.controllingPlayer = this;
         ConnectedPlayerPawnSpawned(Owner);

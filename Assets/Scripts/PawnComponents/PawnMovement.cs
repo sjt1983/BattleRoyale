@@ -3,7 +3,6 @@ using UnityEngine;
 
 public sealed class PawnMovement : NetworkBehaviour
 {
-
     /** References to other Components **/
     private PawnInput pawnInput;
     private CharacterController pawnCharacterController;
@@ -45,10 +44,9 @@ public sealed class PawnMovement : NetworkBehaviour
             movementVelocity.y = 0.0f;
 
             //Only allow jumping if grounded.
-            if (pawnInput.Jump)
+            if (pawnInput.Jumping)
             {
                 movementVelocity.y = jumpSpeed;
-                pawnInput.Jump = false;
             }
         }
         else //Apply gravity
