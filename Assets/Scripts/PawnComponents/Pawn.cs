@@ -63,11 +63,16 @@ public sealed class Pawn : NetworkBehaviour
     public void EquipItem(GameObject item)
     {
         //For now, change the owner to the player (transform not fishnet), equip the Item.
-        item.transform.parent = gameObject.transform;
+        Transform hand = gameObject.transform.Find("Camera").Find("Hand");
+        item.transform.parent = hand;
+        item.transform.rotation = hand.rotation;
+        item.transform.position = hand.position;
+
         //Assign the GameObject
         itemSlotGameObject1 = item;
         //Assign the UseableItem component.
         itemSlotUseable1 = item.GetComponent<UseableItem>();
+        item.GetComponent<UseableItem>().OwnerPawn = this;
         activeSlot = itemSlotUseable1;
     }
 

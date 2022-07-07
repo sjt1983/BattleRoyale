@@ -13,6 +13,7 @@ public abstract class InteractableItem : NetworkBehaviour
     [SerializeField]
     public string InteractText;
 
+
     //Script entrypoint to determine what to do with the item.
     public abstract void Interact(Pawn pawn);
 
@@ -20,4 +21,11 @@ public abstract class InteractableItem : NetworkBehaviour
     {
         return InteractText + " " + ItemName;
     }
+
+    //Disable the item from being interacted with.
+    public abstract void DisableInteractions();
+
+    //Enable the item for interactions.
+    public abstract void EnableInteractions();
+
 }

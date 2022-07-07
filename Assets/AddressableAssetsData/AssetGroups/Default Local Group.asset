@@ -25,6 +25,10 @@ MonoBehaviour:
     m_Address: Pistol
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 70f80da3d10cdd7428981c114a9295a8
+    m_Address: Bullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 0affb0f3888b1214e9a4d2b6764691cb, type: 2}
   m_SchemaSet:

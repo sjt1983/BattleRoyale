@@ -29,7 +29,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 1, z: -0.338}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 687883032490569414}
   m_Father: {fileID: 5962416760707187524}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -84,6 +85,37 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2435898304314817243}
   m_Enabled: 1
+--- !u!1 &3823478650154220295
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 687883032490569414}
+  m_Layer: 0
+  m_Name: Hand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &687883032490569414
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3823478650154220295}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.3, y: -0.5, z: 1.17}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8403922492023930061}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5962416760684297977
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,7 +319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7a2c92f88176374cad495994fdd4103, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 4
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: 5962416760707187525}
   _networkObjectCache: {fileID: 5962416760707187525}
   pawn: {fileID: 5962416760707187526}
@@ -308,7 +340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d30137d69c426a440adad9b958402359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 5
+  _componentIndexCache: 4
   _addedNetworkObject: {fileID: 5962416760707187525}
   _networkObjectCache: {fileID: 5962416760707187525}
   pawnInput: {fileID: 4724986570669673481}
@@ -325,7 +357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80b1db71625acfc4eb27450ee1bc637a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 6
+  _componentIndexCache: 5
   _addedNetworkObject: {fileID: 5962416760707187525}
   _networkObjectCache: {fileID: 5962416760707187525}
   pawn: {fileID: 5962416760707187526}
@@ -341,7 +373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ffdd3d642326e04d981d5edbe5e7341, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 7
+  _componentIndexCache: 6
   _addedNetworkObject: {fileID: 5962416760707187525}
   _networkObjectCache: {fileID: 5962416760707187525}
   pawn: {fileID: 5962416760707187526}
@@ -363,11 +395,11 @@ MonoBehaviour:
   - {fileID: 5962416760707187526}
   - {fileID: 4724986570669673481}
   - {fileID: 2326998793179860253}
-  - {fileID: 5555190590181164100}
   - {fileID: 6708763872489427295}
   - {fileID: -6618634106194668946}
   - {fileID: -2301910318146596449}
   - {fileID: 8609119381501815550}
+  - {fileID: 5555190590181164100}
   SceneTransformProperties:
     Position: {x: 0, y: 0, z: -0.032}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -410,7 +442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 3
+  _componentIndexCache: 7
   _addedNetworkObject: {fileID: 5962416760707187525}
   _networkObjectCache: {fileID: 5962416760707187525}
   _synchronizeParent: 0

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 //Script for the Pistol gun.
 public class PistolUseable : UseableItem
@@ -39,7 +40,15 @@ public class PistolUseable : UseableItem
         if (IsUsing && !semiAutoLock && loadedAmmo > 0)
         {
             loadedAmmo--;
-            Debug.Log("FIRE");
+            Transform pawnCamera = OwnerPawn.transform.Find("Camera");
+            if (Physics.Raycast(pawnCamera.position + (pawnCamera.forward * 1), pawnCamera.forward, out var hit))
+            {
+                GameObject bulletPrefab = Addressables.LoadAssetAsync<GameObject>("Bullet").WaitForCompletion();
+                GameObject bulletInstance = Instantiate(bulletPrefab);
+                Debug.Log(hit.transform.name);
+                Spawn(bulletInstance, Owner);
+                bulletInstance.transform.position = hit.point;
+            }
             semiAutoLock = true;
         }
     }

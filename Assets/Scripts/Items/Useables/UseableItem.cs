@@ -3,6 +3,9 @@ using FishNet.Object;
 //Base Class for the "Useable" portion of an item.
 public abstract class UseableItem : NetworkBehaviour
 {
+    //The pawn which owns the object.
+    public Pawn OwnerPawn;
+
     //Flag for item usage in progress.
     protected bool IsUsing;
 
