@@ -58,7 +58,7 @@ public sealed class ConnectedPlayer : NetworkBehaviour
     {
         GameObject pawnPrefab = Addressables.LoadAssetAsync<GameObject>("Pawn").WaitForCompletion();
         GameObject pawnInstance = Instantiate(pawnPrefab);
-        SpawnPoint[] spawnPoints = FindObjectsOfType<SpawnPoint>();
+        PlayerSpawnPoint[] spawnPoints = FindObjectsOfType<PlayerSpawnPoint>();
 
         int thePoint = Random.Range(0, spawnPoints.Length - 1);
 

@@ -1,29 +1,24 @@
-using FishNet;
 using FishNet.Object;
 using UnityEngine;
 
 public sealed class PawnLook : NetworkBehaviour
 {
+    [SerializeField]
+    private Pawn pawn;
+
+    [SerializeField]
+    private PawnInput pawnInput;
+
     //Refernce for the camera attached to the pawn.
     [SerializeField]
     private Transform pawnCamera;
 
-
     [SerializeField]
-    LayerMask lookLayerMask;
-
-    Pawn pawn;
-    PawnInput pawnInput;
+    private LayerMask lookLayerMask;
 
     //Used to clamp the camera to prevent the users neck from doing vertical 360s.
     private float cameraVerticalRotationClamp = 85;
     private float cameraVerticalRotation = 0f;
-
-    private void Awake()
-    {
-        pawn = GetComponent<Pawn>();
-        pawnInput = GetComponent<PawnInput>();
-    }
 
     public override void OnStartClient()
     {

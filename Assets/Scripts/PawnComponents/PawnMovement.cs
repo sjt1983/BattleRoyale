@@ -4,11 +4,17 @@ using UnityEngine;
 public sealed class PawnMovement : NetworkBehaviour
 {
     /** References to other Components **/
+    [SerializeField]
     private PawnInput pawnInput;
+
+    [SerializeField]
     private Pawn pawn;
+
+    [SerializeField]
     private CharacterController pawnCharacterController;
 
     /** Player Movement Variables **/
+    private const float CROUCH_SPEED = 3;
     private const float WALK_SPEED = 5;
     private const float SPRINT_SPEED = 10;
     private const float JUMP_SPEED = 6;
@@ -28,9 +34,6 @@ public sealed class PawnMovement : NetworkBehaviour
     public override void OnStartNetwork()
     {
         base.OnStartNetwork();
-        pawn = GetComponent<Pawn>();
-        pawnInput = GetComponent<PawnInput>();
-        pawnCharacterController = GetComponent<CharacterController>();
     }
 
     public void Update()
@@ -40,8 +43,8 @@ public sealed class PawnMovement : NetworkBehaviour
 
         //Stamina
         //If sprinting, set sprint speed and drain stamina.
-        //If we completley blow stamina, you cant sprinty again until it regens.
-        if (pawnInput.Sprinting && !pawn.SprintLock)
+        //If we completley blow stamina, you cant sprint again until it regens.
+        if (!pawnInput.Crouching && pawnInput.Sprinting && !pawn.SprintLock)
         {
             currentSpeed = SPRINT_SPEED;
             pawn.Stamina -= STAMINA_BURN * Time.deltaTime;
@@ -53,7 +56,7 @@ public sealed class PawnMovement : NetworkBehaviour
         }
         else
         {
-            currentSpeed = WALK_SPEED;
+            currentSpeed = pawnInput.Crouching ? CROUCH_SPEED : WALK_SPEED;
             pawn.Stamina += STAMINA_REGEN * Time.deltaTime;
             if (pawn.Stamina > MAX_STAMINA)
             {

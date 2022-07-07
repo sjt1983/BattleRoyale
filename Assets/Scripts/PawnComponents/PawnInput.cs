@@ -35,6 +35,9 @@ public sealed class PawnInput : NetworkBehaviour
     //Sprinting!!!
     public bool Sprinting;
 
+    //Crouching
+    public bool Crouching;
+
     //Player hit the jump button.
     //We want to capture that the user jumped.
     //but as soon as something checks that the user hit the jump button, set it to false so we dont get in a jump loop.
@@ -91,6 +94,9 @@ public sealed class PawnInput : NetworkBehaviour
 
         //Sprint
         playerInputSystem.PlayerControls.Sprint.Enable();
+
+        //Crouch
+        playerInputSystem.PlayerControls.Crouch.Enable();
 
         //Enable the controller.
         movementInput.Enable();
@@ -166,6 +172,17 @@ public sealed class PawnInput : NetworkBehaviour
         if (playerInputSystem.PlayerControls.Sprint.WasReleasedThisFrame())
         {
             Sprinting = false;
+        }
+
+        //Handle Sprint
+        if (playerInputSystem.PlayerControls.Crouch.WasPressedThisFrame())
+        {
+            Crouching = true;
+        }
+
+        if (playerInputSystem.PlayerControls.Crouch.WasReleasedThisFrame())
+        {
+            Crouching = false;
         }
     }       
 }

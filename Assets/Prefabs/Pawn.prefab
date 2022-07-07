@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2435898304314817243}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.02, z: -0.338}
+  m_LocalPosition: {x: 0, y: 1, z: -0.338}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -177,14 +177,15 @@ GameObject:
   m_Component:
   - component: {fileID: 5962416760707187524}
   - component: {fileID: 5962416760707187526}
-  - component: {fileID: 5962416760707187525}
-  - component: {fileID: 4066965658101858497}
   - component: {fileID: 4724986570669673481}
   - component: {fileID: 2326998793179860253}
-  - component: {fileID: 5555190590181164100}
   - component: {fileID: 6708763872489427295}
   - component: {fileID: -6618634106194668946}
   - component: {fileID: -2301910318146596449}
+  - component: {fileID: 8609119381501815550}
+  - component: {fileID: 5962416760707187525}
+  - component: {fileID: 4066965658101858497}
+  - component: {fileID: 5555190590181164100}
   m_Layer: 0
   m_Name: Pawn
   m_TagString: Untagged
@@ -228,10 +229,124 @@ MonoBehaviour:
   controllingPlayer: {fileID: 0}
   Health: 100
   Stamina: 100
+  SprintLock: 0
   ItemPawnIsLookingAt: {fileID: 0}
   itemSlotGameObject1: {fileID: 0}
   itemSlotUseable1: {fileID: 0}
   activeSlot: {fileID: 0}
+--- !u!114 &4724986570669673481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5962416760707187531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 399a86fd400602543af0329bad9d2c34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 1
+  _addedNetworkObject: {fileID: 5962416760707187525}
+  _networkObjectCache: {fileID: 5962416760707187525}
+  horizontalDirection: 0
+  verticalDirection: 0
+  AdjustedMouseX: 0
+  AdjustedMouseY: 0
+  Interacting: 0
+  PrimaryUse: 0
+  Sprinting: 0
+  Crouching: 0
+--- !u!114 &2326998793179860253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5962416760707187531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db1f20aa966c09f419948205005502c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 2
+  _addedNetworkObject: {fileID: 5962416760707187525}
+  _networkObjectCache: {fileID: 5962416760707187525}
+  pawnInput: {fileID: 4724986570669673481}
+  pawn: {fileID: 5962416760707187526}
+  pawnCharacterController: {fileID: 4066965658101858497}
+--- !u!114 &6708763872489427295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5962416760707187531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7a2c92f88176374cad495994fdd4103, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 4
+  _addedNetworkObject: {fileID: 5962416760707187525}
+  _networkObjectCache: {fileID: 5962416760707187525}
+  pawn: {fileID: 5962416760707187526}
+  pawnInput: {fileID: 4724986570669673481}
+  pawnCamera: {fileID: 8403922492023930061}
+  lookLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+--- !u!114 &-6618634106194668946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5962416760707187531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d30137d69c426a440adad9b958402359, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 5
+  _addedNetworkObject: {fileID: 5962416760707187525}
+  _networkObjectCache: {fileID: 5962416760707187525}
+  pawnInput: {fileID: 4724986570669673481}
+  pawn: {fileID: 5962416760707187526}
+--- !u!114 &-2301910318146596449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5962416760707187531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80b1db71625acfc4eb27450ee1bc637a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 6
+  _addedNetworkObject: {fileID: 5962416760707187525}
+  _networkObjectCache: {fileID: 5962416760707187525}
+  pawn: {fileID: 5962416760707187526}
+--- !u!114 &8609119381501815550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5962416760707187531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ffdd3d642326e04d981d5edbe5e7341, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 7
+  _addedNetworkObject: {fileID: 5962416760707187525}
+  _networkObjectCache: {fileID: 5962416760707187525}
+  pawn: {fileID: 5962416760707187526}
+  pawnInput: {fileID: 4724986570669673481}
+  pawnCamera: {fileID: 8403922492023930061}
 --- !u!114 &5962416760707187525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,6 +366,8 @@ MonoBehaviour:
   - {fileID: 5555190590181164100}
   - {fileID: 6708763872489427295}
   - {fileID: -6618634106194668946}
+  - {fileID: -2301910318146596449}
+  - {fileID: 8609119381501815550}
   SceneTransformProperties:
     Position: {x: 0, y: 0, z: -0.032}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -281,43 +398,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4724986570669673481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5962416760707187531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 399a86fd400602543af0329bad9d2c34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 1
-  _addedNetworkObject: {fileID: 5962416760707187525}
-  _networkObjectCache: {fileID: 5962416760707187525}
-  horizontalDirection: 0
-  verticalDirection: 0
-  AdjustedMouseX: 0
-  AdjustedMouseY: 0
-  Interacting: 0
-  PrimaryUse: 0
-  Sprinting: 0
---- !u!114 &2326998793179860253
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5962416760707187531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db1f20aa966c09f419948205005502c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 2
-  _addedNetworkObject: {fileID: 5962416760707187525}
-  _networkObjectCache: {fileID: 5962416760707187525}
 --- !u!114 &5555190590181164100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,52 +440,3 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
---- !u!114 &6708763872489427295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5962416760707187531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7a2c92f88176374cad495994fdd4103, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 4
-  _addedNetworkObject: {fileID: 5962416760707187525}
-  _networkObjectCache: {fileID: 5962416760707187525}
-  pawnCamera: {fileID: 8403922492023930061}
-  lookLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
---- !u!114 &-6618634106194668946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5962416760707187531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d30137d69c426a440adad9b958402359, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 5
-  _addedNetworkObject: {fileID: 5962416760707187525}
-  _networkObjectCache: {fileID: 5962416760707187525}
---- !u!114 &-2301910318146596449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5962416760707187531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80b1db71625acfc4eb27450ee1bc637a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 255
-  _addedNetworkObject: {fileID: 5962416760707187525}
-  _networkObjectCache: {fileID: 0}
