@@ -27,6 +27,5 @@ public class PawnCrouch : NetworkBehaviour
                                       pawnCamera.localPosition.y + (CROUCH_SPEED * Time.deltaTime), 
                                       CROUCH_HEAD_Y, STAND_HEAD_Y);
         pawnCamera.localPosition = new Vector3(pawnCamera.localPosition.x, newpos,  pawnCamera.localPosition.z);
-        Debug.Log(newpos);
     }
 }

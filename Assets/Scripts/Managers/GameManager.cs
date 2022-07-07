@@ -23,19 +23,19 @@ public sealed class GameManager : NetworkBehaviour
     }
 
     [Server]
-    public void SpawnItem()
+    public void SpawnItems()
     {
-        GameObject gunPrefab = Addressables.LoadAssetAsync<GameObject>("Pistol").WaitForCompletion();
-        GameObject gunInstance = Instantiate(gunPrefab);
-        
-        Spawn(gunInstance, Owner);
-        gunInstance.transform.position = new Vector3(1, 1, 1);
+        LootSpawnPoint[] lootSpawnPoints = FindObjectsOfType<LootSpawnPoint>();
+        for (int x = 0; x < lootSpawnPoints.Length; x++)
+        {
+            lootSpawnPoints[x].SpawnItems();
+        }
     }
 
     [Server]
     public void StartGame()
     {
-        SpawnItem();
+        SpawnItems();
         for (int i = 0; i <= players.Count; i++)
         {
             players[i].StartGame();
