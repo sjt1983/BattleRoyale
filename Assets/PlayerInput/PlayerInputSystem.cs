@@ -89,6 +89,15 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""b03ccecc-a391-44f5-9cfe-0dc471338534"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -212,6 +221,17 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""379e47cb-54fe-40e6-8d77-e67316d5842e"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -227,6 +247,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         m_PlayerControls_PrimaryUse = m_PlayerControls.FindAction("PrimaryUse", throwIfNotFound: true);
         m_PlayerControls_Interact = m_PlayerControls.FindAction("Interact", throwIfNotFound: true);
         m_PlayerControls_Reload = m_PlayerControls.FindAction("Reload", throwIfNotFound: true);
+        m_PlayerControls_Sprint = m_PlayerControls.FindAction("Sprint", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -293,6 +314,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControls_PrimaryUse;
     private readonly InputAction m_PlayerControls_Interact;
     private readonly InputAction m_PlayerControls_Reload;
+    private readonly InputAction m_PlayerControls_Sprint;
     public struct PlayerControlsActions
     {
         private @PlayerInputSystem m_Wrapper;
@@ -304,6 +326,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         public InputAction @PrimaryUse => m_Wrapper.m_PlayerControls_PrimaryUse;
         public InputAction @Interact => m_Wrapper.m_PlayerControls_Interact;
         public InputAction @Reload => m_Wrapper.m_PlayerControls_Reload;
+        public InputAction @Sprint => m_Wrapper.m_PlayerControls_Sprint;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -334,6 +357,9 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                 @Reload.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnReload;
                 @Reload.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnReload;
                 @Reload.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnReload;
+                @Sprint.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSprint;
+                @Sprint.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSprint;
+                @Sprint.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSprint;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -359,6 +385,9 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                 @Reload.started += instance.OnReload;
                 @Reload.performed += instance.OnReload;
                 @Reload.canceled += instance.OnReload;
+                @Sprint.started += instance.OnSprint;
+                @Sprint.performed += instance.OnSprint;
+                @Sprint.canceled += instance.OnSprint;
             }
         }
     }
@@ -372,5 +401,6 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         void OnPrimaryUse(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
+        void OnSprint(InputAction.CallbackContext context);
     }
 }

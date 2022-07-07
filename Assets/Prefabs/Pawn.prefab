@@ -227,6 +227,7 @@ MonoBehaviour:
   pawnInput: {fileID: 4724986570669673481}
   controllingPlayer: {fileID: 0}
   Health: 100
+  Stamina: 100
   ItemPawnIsLookingAt: {fileID: 0}
   itemSlotGameObject1: {fileID: 0}
   itemSlotUseable1: {fileID: 0}
@@ -301,6 +302,7 @@ MonoBehaviour:
   AdjustedMouseY: 0
   Interacting: 0
   PrimaryUse: 0
+  Sprinting: 0
 --- !u!114 &2326998793179860253
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -32,6 +32,9 @@ public sealed class PawnInput : NetworkBehaviour
     //Player is using their selected item, e.g. shoot gun.
     public bool PrimaryUse;
 
+    //Sprinting!!!
+    public bool Sprinting;
+
     //Player hit the jump button.
     //We want to capture that the user jumped.
     //but as soon as something checks that the user hit the jump button, set it to false so we dont get in a jump loop.
@@ -85,6 +88,9 @@ public sealed class PawnInput : NetworkBehaviour
 
         //Jump
         playerInputSystem.PlayerControls.Jump.Enable();
+
+        //Sprint
+        playerInputSystem.PlayerControls.Sprint.Enable();
 
         //Enable the controller.
         movementInput.Enable();
@@ -149,6 +155,17 @@ public sealed class PawnInput : NetworkBehaviour
         if (playerInputSystem.PlayerControls.Reload.WasPressedThisFrame())
         {
             Reloading = true;
+        }
+
+        //Handle Sprint
+        if (playerInputSystem.PlayerControls.Sprint.WasPressedThisFrame())
+        {
+            Sprinting = true;
+        }
+
+        if (playerInputSystem.PlayerControls.Sprint.WasReleasedThisFrame())
+        {
+            Sprinting = false;
         }
     }       
 }

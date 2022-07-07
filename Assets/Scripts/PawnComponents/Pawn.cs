@@ -19,6 +19,14 @@ public sealed class Pawn : NetworkBehaviour
     [SyncVar]
     public float Health;
 
+    //How much Stamina the Pawn has.
+    [SyncVar]
+    public float Stamina;
+
+    //How much Stamina the Pawn has.
+    [SyncVar]
+    public bool SprintLock = false;
+
     //The item immediatley in front of the player in the world to interact with.
     public InteractableItem ItemPawnIsLookingAt;
 

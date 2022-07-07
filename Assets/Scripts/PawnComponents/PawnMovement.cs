@@ -5,13 +5,19 @@ public sealed class PawnMovement : NetworkBehaviour
 {
     /** References to other Components **/
     private PawnInput pawnInput;
+    private Pawn pawn;
     private CharacterController pawnCharacterController;
 
-    /** Movement related "physics" values. **/
-    private float speed = 5;
-    private float jumpSpeed = 6;
-    private float gravityScale = 1.5f;
+    /** Player Movement Variables **/
+    private const float WALK_SPEED = 5;
+    private const float SPRINT_SPEED = 10;
+    private const float JUMP_SPEED = 6;
+    private const float MAX_STAMINA = 100;
+    private const float STAMINA_BURN = 12;
+    private const float STAMINA_REGEN = 5;
 
+    private float currentSpeed = WALK_SPEED;
+   
     /** Movement Vectors **/
 
     //Used to determine X/Z Movement in 3d space based on input.
@@ -22,6 +28,7 @@ public sealed class PawnMovement : NetworkBehaviour
     public override void OnStartNetwork()
     {
         base.OnStartNetwork();
+        pawn = GetComponent<Pawn>();
         pawnInput = GetComponent<PawnInput>();
         pawnCharacterController = GetComponent<CharacterController>();
     }
@@ -31,8 +38,32 @@ public sealed class PawnMovement : NetworkBehaviour
         if (!IsOwner)
             return;
 
+        //Stamina
+        //If sprinting, set sprint speed and drain stamina.
+        //If we completley blow stamina, you cant sprinty again until it regens.
+        if (pawnInput.Sprinting && !pawn.SprintLock)
+        {
+            currentSpeed = SPRINT_SPEED;
+            pawn.Stamina -= STAMINA_BURN * Time.deltaTime;
+            if (pawn.Stamina <= 0f)
+            {
+                pawn.SprintLock = true;
+                pawn.Stamina = 0f;                
+            }
+        }
+        else
+        {
+            currentSpeed = WALK_SPEED;
+            pawn.Stamina += STAMINA_REGEN * Time.deltaTime;
+            if (pawn.Stamina > MAX_STAMINA)
+            {
+                pawn.SprintLock = false;
+                pawn.Stamina = MAX_STAMINA;
+            }
+        }
+
         //Calculate the velocity based on input.
-        inputCalculatedVelocity = Vector3.ClampMagnitude(((transform.forward * pawnInput.verticalDirection) + (transform.right * pawnInput.horizontalDirection)) * speed, speed);
+        inputCalculatedVelocity = Vector3.ClampMagnitude(((transform.forward * pawnInput.verticalDirection) + (transform.right * pawnInput.horizontalDirection)) * currentSpeed, currentSpeed);
 
         //Take X/Z from the calculated velocity and store in the vector to move the player.
         movementVelocity.x = inputCalculatedVelocity.x;
@@ -46,12 +77,12 @@ public sealed class PawnMovement : NetworkBehaviour
             //Only allow jumping if grounded.
             if (pawnInput.Jumping)
             {
-                movementVelocity.y = jumpSpeed;
+                movementVelocity.y = JUMP_SPEED;
             }
         }
         else //Apply gravity
         {
-            movementVelocity.y += Physics.gravity.y * gravityScale * Time.deltaTime;
+            movementVelocity.y += Physics.gravity.y * 1.5f * Time.deltaTime;
         }
 
         //Finally, move the controller.

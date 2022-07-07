@@ -7,6 +7,9 @@ public class GameUI : BaseUI
     private TextMeshProUGUI healthText;
 
     [SerializeField]
+    private TextMeshProUGUI staminaText;
+
+    [SerializeField]
     private TextMeshProUGUI pickupText;
 
     [SerializeField]
@@ -20,18 +23,25 @@ public class GameUI : BaseUI
         if (!Initialized)
             return;
 
-        ConnectedPlayer player = ConnectedPlayer.Instance;
+        ConnectedPlayer player2 = ConnectedPlayer.Instance;
+        if (player2 == null)
+            return;
 
-        if (player == null || player.controlledPawn == null)
+        Pawn pawn = player2.controlledPawn;
+        if (pawn == null)
             return;
 
         //Health Bar.
-        healthText.text = $"Health: {player.controlledPawn.Health}";
-        
+        healthText.text = $"Health: {(int)Mathf.Ceil(pawn.Health)}";
+
+        //Stamina
+        staminaText.color = pawn.SprintLock ? Color.red : Color.white;
+        staminaText.text = $"Stamina: {(int)Mathf.Ceil(pawn.Stamina)}";
+
         //Interact Notification
-        if (player.controlledPawn.ItemPawnIsLookingAt != null)
+        if (pawn.ItemPawnIsLookingAt != null)
         {
-            pickupText.text = $"{player.controlledPawn.ItemPawnIsLookingAt.GetInteractText()}";
+            pickupText.text = $"{pawn.ItemPawnIsLookingAt.GetInteractText()}";
         }
         else
         {
@@ -39,10 +49,10 @@ public class GameUI : BaseUI
         }
 
         //Primary Item
-        if (player.controlledPawn.itemSlotUseable1 != null)
+        if (pawn.itemSlotUseable1 != null)
         {
-            primarySlotName.text = player.controlledPawn.itemSlotUseable1.GetItemName();
-            primarySlotQuantity.text = player.controlledPawn.itemSlotUseable1.GetQuantity();
+            primarySlotName.text = pawn.itemSlotUseable1.GetItemName();
+            primarySlotQuantity.text = pawn.itemSlotUseable1.GetQuantity();
         }
         else
         {
