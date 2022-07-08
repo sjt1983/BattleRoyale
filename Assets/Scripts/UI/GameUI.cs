@@ -18,6 +18,9 @@ public class GameUI : BaseUI
     [SerializeField]
     private TextMeshProUGUI primarySlotQuantity;
 
+    [SerializeField]
+    private GameObject crossHair;
+
     public void Update()
     {
         if (!Initialized)
@@ -59,5 +62,8 @@ public class GameUI : BaseUI
             primarySlotName.text = "";
             primarySlotQuantity.text = "";
         }
+
+        //Crosshair - Remove for ADS
+        crossHair.SetActive(pawn.ZoomFov == 0);
     }
 }
