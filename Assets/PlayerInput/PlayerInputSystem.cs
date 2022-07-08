@@ -73,6 +73,15 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""SecondaryUse"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""e9615116-202c-4be9-9af6-b5dfcdda4bcc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""ce136229-ccf4-4def-a1ee-b612a9afdd05"",
@@ -252,6 +261,17 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                     ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c8d52c45-137f-42ab-9294-a0dd088ac8aa"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SecondaryUse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -265,6 +285,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         m_PlayerControls_MouseX = m_PlayerControls.FindAction("MouseX", throwIfNotFound: true);
         m_PlayerControls_MouseY = m_PlayerControls.FindAction("MouseY", throwIfNotFound: true);
         m_PlayerControls_PrimaryUse = m_PlayerControls.FindAction("PrimaryUse", throwIfNotFound: true);
+        m_PlayerControls_SecondaryUse = m_PlayerControls.FindAction("SecondaryUse", throwIfNotFound: true);
         m_PlayerControls_Interact = m_PlayerControls.FindAction("Interact", throwIfNotFound: true);
         m_PlayerControls_Reload = m_PlayerControls.FindAction("Reload", throwIfNotFound: true);
         m_PlayerControls_Sprint = m_PlayerControls.FindAction("Sprint", throwIfNotFound: true);
@@ -333,6 +354,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControls_MouseX;
     private readonly InputAction m_PlayerControls_MouseY;
     private readonly InputAction m_PlayerControls_PrimaryUse;
+    private readonly InputAction m_PlayerControls_SecondaryUse;
     private readonly InputAction m_PlayerControls_Interact;
     private readonly InputAction m_PlayerControls_Reload;
     private readonly InputAction m_PlayerControls_Sprint;
@@ -346,6 +368,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         public InputAction @MouseX => m_Wrapper.m_PlayerControls_MouseX;
         public InputAction @MouseY => m_Wrapper.m_PlayerControls_MouseY;
         public InputAction @PrimaryUse => m_Wrapper.m_PlayerControls_PrimaryUse;
+        public InputAction @SecondaryUse => m_Wrapper.m_PlayerControls_SecondaryUse;
         public InputAction @Interact => m_Wrapper.m_PlayerControls_Interact;
         public InputAction @Reload => m_Wrapper.m_PlayerControls_Reload;
         public InputAction @Sprint => m_Wrapper.m_PlayerControls_Sprint;
@@ -374,6 +397,9 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                 @PrimaryUse.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPrimaryUse;
                 @PrimaryUse.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPrimaryUse;
                 @PrimaryUse.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPrimaryUse;
+                @SecondaryUse.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSecondaryUse;
+                @SecondaryUse.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSecondaryUse;
+                @SecondaryUse.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSecondaryUse;
                 @Interact.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnInteract;
@@ -405,6 +431,9 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
                 @PrimaryUse.started += instance.OnPrimaryUse;
                 @PrimaryUse.performed += instance.OnPrimaryUse;
                 @PrimaryUse.canceled += instance.OnPrimaryUse;
+                @SecondaryUse.started += instance.OnSecondaryUse;
+                @SecondaryUse.performed += instance.OnSecondaryUse;
+                @SecondaryUse.canceled += instance.OnSecondaryUse;
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
@@ -428,6 +457,7 @@ public partial class @PlayerInputSystem : IInputActionCollection2, IDisposable
         void OnMouseX(InputAction.CallbackContext context);
         void OnMouseY(InputAction.CallbackContext context);
         void OnPrimaryUse(InputAction.CallbackContext context);
+        void OnSecondaryUse(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);

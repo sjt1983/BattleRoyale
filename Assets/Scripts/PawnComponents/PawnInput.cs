@@ -32,6 +32,9 @@ public sealed class PawnInput : NetworkBehaviour
     //Player is using their selected item, e.g. shoot gun.
     public bool PrimaryUse;
 
+    //Player is using their selected item with alternate action, e.g. ADS/Zoom
+    public bool SecondaryUse;
+
     //Sprinting!!!
     public bool Sprinting;
 
@@ -86,6 +89,9 @@ public sealed class PawnInput : NetworkBehaviour
         //Primary Use
         playerInputSystem.PlayerControls.PrimaryUse.Enable();
 
+        //Secondary Use
+        playerInputSystem.PlayerControls.SecondaryUse.Enable();
+
         //Reload
         playerInputSystem.PlayerControls.Reload.Enable();
 
@@ -136,7 +142,7 @@ public sealed class PawnInput : NetworkBehaviour
             Interacting = false;
         }
 
-        //Handle Use
+        //Handle Primary Use
         if (playerInputSystem.PlayerControls.PrimaryUse.WasPressedThisFrame())
         {
             PrimaryUse = true;
@@ -145,6 +151,17 @@ public sealed class PawnInput : NetworkBehaviour
         if (playerInputSystem.PlayerControls.PrimaryUse.WasReleasedThisFrame())
         {
             PrimaryUse = false;
+        }
+
+        //Handle Secondary Use
+        if (playerInputSystem.PlayerControls.SecondaryUse.WasPressedThisFrame())
+        {
+            SecondaryUse = true;
+        }
+
+        if (playerInputSystem.PlayerControls.SecondaryUse.WasReleasedThisFrame())
+        {
+            SecondaryUse = false;
         }
 
         //Handle Interaction

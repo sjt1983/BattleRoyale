@@ -6,18 +6,33 @@ public abstract class UseableItem : NetworkBehaviour
     //The pawn which owns the object.
     public Pawn OwnerPawn;
 
-    //Flag for item usage in progress.
-    protected bool IsUsing;
+    //Flag for item primary usage in progress.
+    protected bool IsPrimaryUsingItem;
 
-    //Start Using the item.
-    public virtual void StartUse() {
-        IsUsing = true;
+    //Flag for item primary usage in progress.
+    protected bool IsSecondaryUsingItem;
+
+    //Start Primary Using the item.
+    public virtual void StartPrimaryUse() {
+        IsPrimaryUsingItem = true;
     }
 
-    //Stop Using the item.
-    public virtual void StopUse()
+    //Stop Primary Using the item.
+    public virtual void StopPrimaryUse()
     {
-        IsUsing = false;
+        IsPrimaryUsingItem = false;
+    }
+
+    //Start Secondary Using the item.
+    public virtual void StartSecondaryUse()
+    {
+        IsSecondaryUsingItem = true;
+    }
+
+    //Stop Secondary Using the item.
+    public virtual void StopSecondaryUse()
+    {
+        IsSecondaryUsingItem = false;
     }
 
     //Reload for guns.

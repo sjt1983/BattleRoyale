@@ -21,14 +21,17 @@ public class PistolUseable : GunBase
     //The pistol is semi-auto, so the player must click once for each bullet.
     private bool semiAutoLock = false;
 
-    public override void StartUse()
+    public Vector3 hipfireHandPosition = new Vector3(.3f, -.5f, .6f);
+    public Vector3 adsHandPosition = new Vector3(-.017f, -.2f, .6f);
+
+    public override void StartPrimaryUse()
     {
-        base.StartUse();
+        base.StartPrimaryUse();
     }
 
-    public override void StopUse()
+    public override void StopPrimaryUse()
     {
-        base.StopUse();
+        base.StopPrimaryUse();
         semiAutoLock = false;
     }
 
@@ -45,14 +48,28 @@ public class PistolUseable : GunBase
     // Update is called once per frame
     void Update()
     {
+        if (OwnerPawn == null)
+            return;
+
         //If the player has hit the use key, and the gun did not shoot already, and we have ammo, fire!
-        if (IsUsing && !semiAutoLock && loadedAmmo > 0)
+        if (IsPrimaryUsingItem && !semiAutoLock && loadedAmmo > 0)
         {
             loadedAmmo--;
             FireBullet(bloom + recoilBloom);
             RecoilCamera(2f);
-            recoilBloom += recoilBloomPerShot;
+            recoilBloom += recoilBloomPerShot / (IsSecondaryUsingItem ? 2f : 1f);
             semiAutoLock = true;
+        }
+
+        if (IsSecondaryUsingItem)
+        {
+            OwnerPawn.ZoomFov = 15;
+            OwnerPawn.targetHandPosition = adsHandPosition;
+        }
+        else
+        {
+            OwnerPawn.ZoomFov = 0;
+            OwnerPawn.targetHandPosition = hipfireHandPosition;
         }
 
         //Recoil bloom cant go below zero and maxes at 1, for now, this is large and will never happen but for now I dont want to limit it.

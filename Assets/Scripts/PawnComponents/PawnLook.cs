@@ -20,6 +20,8 @@ public sealed class PawnLook : NetworkBehaviour
     private float cameraVerticalRotationClamp = 85;
     private float cameraVerticalRotation = 0f;
 
+    private static readonly float ZOOM_SPEED = 100;
+
     public override void OnStartClient()
     {
         base.OnStartClient();
@@ -35,22 +37,39 @@ public sealed class PawnLook : NetworkBehaviour
     {
         if (!IsOwner)
             return;
-
+                
+        //Determine Recoil values for camera movement/player rotation
         float effectiveRecoil = pawn.GetEffectiveRecoil();
         float recoilRotation = pawn.GetEffectiveRecoil() == 0f ? 0f : 2f * (Random.Range(1,3) == 1 ? 1 : -1) * Time.deltaTime;
+        
         //Rotate player.
         gameObject.transform.Rotate(Vector3.up, pawnInput.AdjustedMouseX + recoilRotation);
 
-        //Move camera up        
-
+        //Move camera up
         cameraVerticalRotation -= pawnInput.AdjustedMouseY + effectiveRecoil;
-
         cameraVerticalRotation = Mathf.Clamp(cameraVerticalRotation, -cameraVerticalRotationClamp, cameraVerticalRotationClamp);
         Vector3 targetRoation = transform.eulerAngles;
         targetRoation.x = cameraVerticalRotation;
         pawnCamera.transform.eulerAngles = targetRoation;
 
         checkToWhatPlayerIsLookingAt();
+
+        //Adjust the FOV based on zooming.
+        float currentFov = pawnCamera.GetComponent<Camera>().fieldOfView;
+        //ZOOMING IN - removing from FOV
+        if (currentFov > pawn.DefaultFov - pawn.ZoomFov)
+        {
+            currentFov -= ZOOM_SPEED * Time.deltaTime;
+            currentFov = Mathf.Clamp(currentFov, pawn.DefaultFov - pawn.ZoomFov, 90);
+        }
+        //ZOOMING OUT - adding to FOV
+        else if (currentFov < pawn.DefaultFov - pawn.ZoomFov)
+        {
+            currentFov += ZOOM_SPEED * Time.deltaTime;
+            currentFov = Mathf.Clamp(currentFov, 0, pawn.DefaultFov);
+        }
+
+        pawnCamera.GetComponent<Camera>().fieldOfView = currentFov;
     }
 
     private void checkToWhatPlayerIsLookingAt()

@@ -30,6 +30,10 @@ public sealed class Pawn : NetworkBehaviour
     [SerializeField]
     private float recoil = 0f;
 
+    public float ZoomFov = 0f;
+    public float DefaultFov;
+    Transform hand;
+
     //The item immediatley in front of the player in the world to interact with.
     public InteractableItem ItemPawnIsLookingAt;
 
@@ -40,22 +44,52 @@ public sealed class Pawn : NetworkBehaviour
     //Active item slot.
     public UseableItem activeSlot;
 
+    public bool Initialized = false;
+
+    public Vector3 targetHandPosition;
+
+    private void Initialize()
+    {
+        //Name this one "SELF" so we can ignore it for raycasts for bullets
+        gameObject.name = "SELF";
+        DefaultFov = gameObject.GetComponentInChildren<Camera>().fieldOfView;
+
+        hand = transform.Find("Camera").Find("Hand").transform;
+        Initialized = true;
+    }
+
     public void Update()
     {
         if (!IsOwner)
             return;
 
-        gameObject.name = "SELF";
+        if (!Initialized)
+            Initialize();
 
         //Primary Use
         if (activeSlot != null && pawnInput.PrimaryUse)
         {
-            activeSlot.StartUse();
+            activeSlot.StartPrimaryUse();
         }
         else if (activeSlot != null)
         {
-            activeSlot.StopUse();
+            activeSlot.StopPrimaryUse();
         }
+
+        //Secondary Use
+        if (activeSlot != null && pawnInput.SecondaryUse)
+        {
+            activeSlot.StartSecondaryUse();
+            
+        }
+        else if (activeSlot != null)
+        {
+            activeSlot.StopSecondaryUse();
+        }
+
+        if (targetHandPosition != null)
+            hand.transform.localPosition = targetHandPosition;
+
 
         //Reload
         if (activeSlot != null && pawnInput.Reloading)

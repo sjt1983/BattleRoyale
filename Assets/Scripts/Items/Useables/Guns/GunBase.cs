@@ -20,17 +20,12 @@ public abstract class GunBase : UseableItem
         Vector3 hitPoint;
         GameObject hit = GetObjectsBulletHit(hits, out hitPoint);
 
-        Debug.DrawRay(position.position, (position.forward + (position.right * bloomRight) + position.up * bloomUp) * 1000, Color.green, 10000f);
-
         if (hit != null)
         {
             GameObject bulletInstance = Instantiate(bulletPrefab);
             bulletInstance.transform.position = hitPoint;
             Spawn(bulletInstance, Owner);
-
-            bulletInstance = Instantiate(bulletPrefab);
-            bulletInstance.transform.position = hitPoint;
-            Spawn(bulletInstance, Owner);
+            Debug.Log(hit.name);
         }
         return hit;
     }
