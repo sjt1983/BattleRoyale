@@ -1,11 +1,22 @@
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-
 //Script for the Pistol gun.
-public class PistolUseable : UseableItem
+public class PistolUseable : GunBase
 {
     //How much ammo is in the gun.
     private int loadedAmmo = 8;
+
+    //How much bloom the gun has by default.
+    private float bloom = .01f;
+
+    //How much recoil is added due to bloom.
+    [SerializeField]
+    private float recoilBloom = 0f;
+
+    //How much recoil bloom to add per shot.
+    private float recoilBloomPerShot = .003f;
+
+    //How fast the bloom recovers per second
+    private float recoilBloomRecoveryPerSecond = .02f;
 
     //The pistol is semi-auto, so the player must click once for each bullet.
     private bool semiAutoLock = false;
@@ -21,7 +32,6 @@ public class PistolUseable : UseableItem
         semiAutoLock = false;
     }
 
-
     public override string GetItemName()
     {
         return "Pistol";
@@ -30,7 +40,6 @@ public class PistolUseable : UseableItem
     public override void Reload()
     {
         loadedAmmo = 8;
-
     }
 
     // Update is called once per frame
@@ -40,17 +49,13 @@ public class PistolUseable : UseableItem
         if (IsUsing && !semiAutoLock && loadedAmmo > 0)
         {
             loadedAmmo--;
-            Transform pawnCamera = OwnerPawn.transform.Find("Camera");
-            if (Physics.Raycast(pawnCamera.position + (pawnCamera.forward * 1), pawnCamera.forward, out var hit))
-            {
-                GameObject bulletPrefab = Addressables.LoadAssetAsync<GameObject>("Bullet").WaitForCompletion();
-                GameObject bulletInstance = Instantiate(bulletPrefab);
-                Debug.Log(hit.transform.name);
-                Spawn(bulletInstance, Owner);
-                bulletInstance.transform.position = hit.point;
-            }
+            FireBullet(bloom + recoilBloom);
+            recoilBloom += recoilBloomPerShot;
             semiAutoLock = true;
         }
+
+        //Recoil bloom cant go below zero and maxes at 1, for now, this is large and will never happen but for now I dont want to limit it.
+        recoilBloom = Mathf.Clamp(recoilBloom - recoilBloomRecoveryPerSecond * Time.deltaTime, 0, 1);
     }
 
     public override string GetQuantity()

@@ -1,7 +1,5 @@
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 //Controls the state of the overall game.
 public sealed class GameManager : NetworkBehaviour

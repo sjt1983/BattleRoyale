@@ -27,7 +27,7 @@ public sealed class Pawn : NetworkBehaviour
     [SyncVar]
     public bool SprintLock = false;
 
-    //The item immediatley in front of the player in the world to interact with.
+        //The item immediatley in front of the player in the world to interact with.
     public InteractableItem ItemPawnIsLookingAt;
 
     //Inventory Slots
@@ -41,6 +41,8 @@ public sealed class Pawn : NetworkBehaviour
     {
         if (!IsOwner)
             return;
+
+        gameObject.name = "SELF";
 
         //Primary Use
         if (activeSlot != null && pawnInput.PrimaryUse)
