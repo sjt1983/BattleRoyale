@@ -23,11 +23,14 @@ public sealed class Pawn : NetworkBehaviour
     [SyncVar]
     public float Stamina;
 
-    //How much Stamina the Pawn has.
+    //If the player sprinted too much and must recover stamina
     [SyncVar]
-    public bool SprintLock = false;
+    public bool SprintLock = false;        
 
-        //The item immediatley in front of the player in the world to interact with.
+    [SerializeField]
+    private float recoil = 0f;
+
+    //The item immediatley in front of the player in the world to interact with.
     public InteractableItem ItemPawnIsLookingAt;
 
     //Inventory Slots
@@ -61,7 +64,7 @@ public sealed class Pawn : NetworkBehaviour
         }
     }
 
-    //Equip and Item
+    //Equip an Item
     public void EquipItem(GameObject item)
     {
         //For now, change the owner to the player (transform not fishnet), equip the Item.
@@ -100,5 +103,32 @@ public sealed class Pawn : NetworkBehaviour
         {
             ItemPawnIsLookingAt.Interact(this);
         }
+    }
+
+    //Add recoil to the player
+    //Recoil bounces the camera vertically and drifts horizontally while there is recoil
+    public void AddRecoil(float intensity)
+    {
+        if (recoil < 0)
+            recoil = 0;
+
+        recoil += intensity;
+    }
+
+    //Recoil is achieved by adding an intensity to the Pawn
+    //For now, we deduct the intensity and adjust the camera vertically by 20 degrees a second
+    //To allow a drop after the recoil, we dip negative 1.5 degrees after all firing has stopped.
+    public float GetEffectiveRecoil()
+    {
+        float retval = 20 * Time.deltaTime;
+        recoil -= retval;
+
+        if (recoil < 0)
+            retval *= -1;
+
+        if (recoil <= -1.5f)
+            return 0;
+
+        return retval;
     }
 }

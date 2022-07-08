@@ -13,10 +13,10 @@ public class PistolUseable : GunBase
     private float recoilBloom = 0f;
 
     //How much recoil bloom to add per shot.
-    private float recoilBloomPerShot = .003f;
+    private float recoilBloomPerShot = .01f;
 
     //How fast the bloom recovers per second
-    private float recoilBloomRecoveryPerSecond = .02f;
+    private float recoilBloomRecoveryPerSecond = .04f;
 
     //The pistol is semi-auto, so the player must click once for each bullet.
     private bool semiAutoLock = false;
@@ -50,12 +50,14 @@ public class PistolUseable : GunBase
         {
             loadedAmmo--;
             FireBullet(bloom + recoilBloom);
+            RecoilCamera(2f);
             recoilBloom += recoilBloomPerShot;
             semiAutoLock = true;
         }
 
         //Recoil bloom cant go below zero and maxes at 1, for now, this is large and will never happen but for now I dont want to limit it.
         recoilBloom = Mathf.Clamp(recoilBloom - recoilBloomRecoveryPerSecond * Time.deltaTime, 0, 1);
+
     }
 
     public override string GetQuantity()

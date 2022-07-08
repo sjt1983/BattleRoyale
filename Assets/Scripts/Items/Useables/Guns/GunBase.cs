@@ -10,7 +10,7 @@ public abstract class GunBase : UseableItem
         bulletPrefab = Addressables.LoadAssetAsync<GameObject>("Bullet").WaitForCompletion();
     }
 
-    public GameObject FireBullet(float bloom)
+    protected GameObject FireBullet(float bloom)
     {
         Transform position = OwnerPawn.transform.Find("Camera");
         float bloomUp = Random.Range(bloom, -bloom);
@@ -35,7 +35,7 @@ public abstract class GunBase : UseableItem
         return hit;
     }
 
-    public GameObject GetObjectsBulletHit(RaycastHit[] raycastHits, out Vector3 returnHitPoint)
+    protected GameObject GetObjectsBulletHit(RaycastHit[] raycastHits, out Vector3 returnHitPoint)
     {
         GameObject hitGameObject = null;
         returnHitPoint = new Vector3();
@@ -57,5 +57,10 @@ public abstract class GunBase : UseableItem
             }
         }
         return hitGameObject;
+    }
+
+    protected void RecoilCamera(float intensity)
+    {
+        OwnerPawn.AddRecoil(intensity);
     }
 }

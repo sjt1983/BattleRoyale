@@ -36,11 +36,15 @@ public sealed class PawnLook : NetworkBehaviour
         if (!IsOwner)
             return;
 
+        float effectiveRecoil = pawn.GetEffectiveRecoil();
+        float recoilRotation = pawn.GetEffectiveRecoil() == 0f ? 0f : 2f * (Random.Range(1,3) == 1 ? 1 : -1) * Time.deltaTime;
         //Rotate player.
-        gameObject.transform.Rotate(Vector3.up, pawnInput.AdjustedMouseX);
+        gameObject.transform.Rotate(Vector3.up, pawnInput.AdjustedMouseX + recoilRotation);
 
         //Move camera up        
-        cameraVerticalRotation -= pawnInput.AdjustedMouseY;
+
+        cameraVerticalRotation -= pawnInput.AdjustedMouseY + effectiveRecoil;
+
         cameraVerticalRotation = Mathf.Clamp(cameraVerticalRotation, -cameraVerticalRotationClamp, cameraVerticalRotationClamp);
         Vector3 targetRoation = transform.eulerAngles;
         targetRoation.x = cameraVerticalRotation;
